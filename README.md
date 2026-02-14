@@ -2,7 +2,7 @@
 
 A lightweight daemon for Android devices designed to automatically manage system performance based on the current context (active application, battery status, screen state).
 
-This daemon is a core component of the [**Aozora Kernel Helper**](https://t.me/KaiProject2/1077) module (for Magisk/KSU/KSUFork) and is designed to work in tandem with the [**xBoosterCore**](https://github.com/xMikkkaa/xBoosterCore.git) application, which provides a user interface for configuration and control.
+This daemon is a core component of the [**Aozora Kernel Helper**](https://t.me/KaiProject2/1077) module (for Magisk/KSU/KSUFork) and is designed to work in tandem with the [**xBoosterCore**](https://github.com/xMikkkaa/xBoosterCore.git) app.
 
 ## Features
 

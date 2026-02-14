@@ -1,4 +1,4 @@
-#include "autd.h"
+#include "../include/autd.h"
 
 #ifdef __ANDROID__
 system_property_get_fn __system_property_get_ptr = NULL;
@@ -15,26 +15,15 @@ void setup_android_env(void) {
     setenv("ANDROID_I18N_ROOT", "/apex/com.android.i18n", 1);
 }
 
-void send_notif(const char* msg) {
-    char notification_msg[512];
-    int n = snprintf(notification_msg, sizeof(notification_msg),
-                     "cmd notification post -S bigtext -t 'Automation Daemon' 'autd_status' '%s'",
+void send_toast(const char *msg) {
+    char command[512];
+    int n = snprintf(command, sizeof(command),
+                     "am broadcast -a com.xandroid.booster.NOTIFY -n com.xandroid.booster/.ToastReceiver --user 0 --es message \"%s\" > /dev/null 2>&1",
                      msg ? msg : "");
-    if (n < 0 || (size_t)n >= sizeof(notification_msg)) {
-        notification_msg[sizeof(notification_msg)-1] = '\0';
+    if (n < 0 || (size_t)n >= sizeof(command)) {
+        command[sizeof(command) - 1] = '\0';
     }
-    system(notification_msg);
-}
-
-void send_notif_tag(const char* tag, const char* msg) {
-    char notification_msg[512];
-    int n = snprintf(notification_msg, sizeof(notification_msg),
-                     "cmd notification post -S bigtext -t 'Automation Daemon' '%s' '%s'",
-                     tag ? tag : "autd_status", msg ? msg : "");
-    if (n < 0 || (size_t)n >= sizeof(notification_msg)) {
-        notification_msg[sizeof(notification_msg)-1] = '\0';
-    }
-    system(notification_msg);
+    system(command);
 }
 
 bool read_file_content(const char* path, char* buffer, size_t buffer_size) {

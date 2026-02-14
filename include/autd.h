@@ -27,10 +27,16 @@ typedef int (*system_property_get_fn)(const char *name, char *value);
 extern system_property_get_fn __system_property_get_ptr;
 #endif
 
-#define AUTD_BASE_MODE_PATH "/data/adb/autd_base_mode"
-#define FILELIST_PATH "/sdcard/Android/filelist.txt"
-#define AUTD_STATUS_PATH "/dev/autd_status"
-#define AUTD_AWAKE_DEBUG_LOG "/sdcard/autd_awake_method.info"
+#define APP_DIR "/data/data/com.xandroid.booster/files"
+
+// Configs & State
+#define AUTD_BASE_MODE_PATH  APP_DIR "/autd_base_mode"
+#define FILELIST_PATH        APP_DIR "/applist"
+#define AUTD_STATUS_PATH     APP_DIR "/autd_status"
+#define AUTD_OPT_ALLOW_PATH  APP_DIR "/autd_opt_allow"
+
+// Logs
+#define AUTD_AWAKE_DEBUG_LOG APP_DIR "/autd_awake_method.info"
 
 typedef struct TidNode {
     int tid;
@@ -44,8 +50,7 @@ typedef struct {
 
 
 void setup_android_env(void);
-void send_notif(const char* msg);
-void send_notif_tag(const char* tag, const char* msg);
+void send_toast(const char *msg);
 bool read_file_content(const char* path, char* buffer, size_t buffer_size);
 char* run_cmd_capture(const char* cmd, long timeout_ms);
 void log_active_method(const char* method);
@@ -66,6 +71,7 @@ bool check_pid_name(int pid, char *out_base, size_t out_base_len, char *out_mode
 bool find_game_process(char *out_base, size_t out_base_len, char *out_mode, size_t out_mode_len, int *out_pid);
 
 extern volatile sig_atomic_t running;
+extern volatile sig_atomic_t screen_off_wait;
 void handle_signal(int sig);
 
 #endif

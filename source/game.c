@@ -1,4 +1,4 @@
-#include "autd.h"
+#include "../include/autd.h"
 
 static TidNode *optimized_set = NULL;
 static FileEntry *file_entries = NULL;

@@ -9,7 +9,7 @@ This daemon is a core component of the [**Aozora Kernel Helper**](https://t.me/K
 - **Dynamic Performance Switching:** Automatically switches between performance profiles.
 - **Game Detection:** Identifies when a game is running and applies a specific gaming mode for optimal performance.
 - **Battery Saver Integration:** Switches to a power-saving mode when the battery is low.
-- **App Integration:** Can be configured and controlled via a companion app.
+- **App Integration:** Toast notification from app.
 
 ## Cross-Compiling for Android (aarch64)
 

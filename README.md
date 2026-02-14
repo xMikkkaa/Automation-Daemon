@@ -71,9 +71,8 @@ The compiled binary, named `autd`, will be created in the root of the project di
 The compiled `autd` binary is for Android and must be copied to `/system/bin/` on Aozora Kernel Helper Module. It requires root access to run.
 
 ```sh
-# Example of pushing and running the daemon via adb
-adb push autd /data/local/tmp/
-adb shell
-su
-/data/local/tmp/autd &
+# Example of running the daemon via terminal on android
+su -c autd
+or
+nohup autd
 ```

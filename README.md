@@ -73,6 +73,6 @@ The compiled `autd` binary is for Android and must be copied to `/system/bin/` o
 ```sh
 # Example of running the daemon via terminal on android
 su -c autd
-or
+# or
 nohup autd
 ```

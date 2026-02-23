@@ -15,6 +15,17 @@ void setup_android_env(void) {
     setenv("ANDROID_I18N_ROOT", "/apex/com.android.i18n", 1);
 }
 
+void ensure_app_dir(void) {
+    struct stat st = {0};
+    if (stat(APP_DIR, &st) == -1) {
+        if (mkdir(APP_DIR, 0777) == -1) {
+            perror("mkdir APP_DIR");
+        } else {
+            chmod(APP_DIR, 0777);
+        }
+    }
+}
+
 void send_toast(const char *msg) {
     char command[512];
     int n = snprintf(command, sizeof(command),

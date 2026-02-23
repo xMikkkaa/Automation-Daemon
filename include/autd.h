@@ -50,6 +50,7 @@ typedef struct {
 
 
 void setup_android_env(void);
+void ensure_app_dir(void);
 void send_toast(const char *msg);
 bool read_file_content(const char* path, char* buffer, size_t buffer_size);
 char* run_cmd_capture(const char* cmd, long timeout_ms);

@@ -9,6 +9,7 @@ void signal_handler(int sig) {
 
 int main() {
     setup_android_env();
+    ensure_app_dir();
 
     // Register signal handlers at the beginning
     struct sigaction sa;

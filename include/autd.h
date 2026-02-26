@@ -43,7 +43,7 @@ typedef int (*system_property_get_fn)(const char *name, char *value);
 extern system_property_get_fn __system_property_get_ptr;
 #endif
 
-#define APP_DIR "/data/data/com.xandroid.booster/files"
+#define APP_DIR "/data/data/com.xaozora.manager/files"
 
 // Configs & State
 #define AUTD_BASE_MODE_PATH  APP_DIR "/autd_base_mode"

@@ -274,7 +274,7 @@ int get_battery_level(void) {
 }
 
 bool is_android_powersave(void) {
-    char* output = run_cmd_capture("settings get global low_power", 1000);
+    char* output = run_cmd_capture("cmd settings get global low_power", 1000);
     bool active = false;
     if (output) {
         active = (output[0] == '1');

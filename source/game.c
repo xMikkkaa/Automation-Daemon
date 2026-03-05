@@ -100,14 +100,16 @@ bool check_pid_name(int pid, char *out_base, size_t out_base_len, char *out_mode
     cmdline[r] = '\0';
 
     char *name = cmdline;
-    
     if (name[0] == '\0') return false;
 
     char *slash = strrchr(name, '/');
     if (slash && slash[1] != '\0') name = slash + 1;
 
     for (size_t fe = 0; fe < num_file_entries; fe++) {
-        if (strcmp(name, file_entries[fe].base) == 0) {
+        size_t base_len = strlen(file_entries[fe].base);
+        if (strncmp(name, file_entries[fe].base, base_len) == 0 && 
+            (name[base_len] == '\0' || name[base_len] == ':')) {
+            
             if (out_base && out_base_len) {
                 strncpy(out_base, file_entries[fe].base, out_base_len - 1);
                 out_base[out_base_len - 1] = '\0';
@@ -124,11 +126,13 @@ bool check_pid_name(int pid, char *out_base, size_t out_base_len, char *out_mode
 
 bool find_game_process(char *out_base, size_t out_base_len, char *out_mode, size_t out_mode_len, int *out_pid) {
     if (num_file_entries == 0) return false;
+    
     const char* cpuset_paths[] = {
         "/dev/cpuset/top-app/cgroup.procs",
         "/dev/stune/top-app/cgroup.procs",
         NULL
     };
+    
     for (int i = 0; cpuset_paths[i] != NULL; i++) {
         FILE *f = fopen(cpuset_paths[i], "r");
         if (f) {
@@ -141,23 +145,8 @@ bool find_game_process(char *out_base, size_t out_base_len, char *out_mode, size
                 }
             }
             fclose(f);
-            return false; 
         }
     }
-    DIR *proc = opendir("/proc");
-    if (!proc) return false;
-    
-    struct dirent *entry;
-    while ((entry = readdir(proc)) != NULL) {
-        if (!isdigit((unsigned char)entry->d_name[0])) continue;
-        int pid = atoi(entry->d_name);
-        if (check_pid_name(pid, out_base, out_base_len, out_mode, out_mode_len)) {
-            *out_pid = pid;
-            closedir(proc);
-            return true;
-        }
-    }
-    closedir(proc);
     return false;
 }
 

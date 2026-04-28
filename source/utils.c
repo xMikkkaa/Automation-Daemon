@@ -64,7 +64,7 @@ bool read_file_content(const char* path, char* buffer, size_t buffer_size) {
         while (len > 0 && isspace((unsigned char)buffer[len-1])) {
             buffer[--len] = '\0';
         }
-        if (len < 3 || strcmp(buffer, "0") == 0) {
+        if (len == 0) {
             fclose(f);
             return false;
         }

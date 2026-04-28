@@ -91,9 +91,9 @@ int main() {
         }
 
         // Read Optimizer Toggle
-        char opt_allow_buffer[2];
+        char opt_allow_buffer[8];
         if (read_file_content(AUTD_OPT_ALLOW_PATH, opt_allow_buffer, sizeof(opt_allow_buffer))) {
-            is_optimize_allowed = (strcmp(opt_allow_buffer, "1") == 0);
+            is_optimize_allowed = (opt_allow_buffer[0] == '1');
         } else {
             is_optimize_allowed = true; // Default ON
         }
@@ -142,7 +142,6 @@ int main() {
                 
                 send_toast("Mode: Powersave (Battery Low/System Saver)");
                 strncpy(last_mode, "powersave", sizeof(last_mode)-1);
-                last_mode[sizeof(last_mode)-1] = '\0';
                 last_mode[sizeof(last_mode)-1] = '\0';
                 idle_cycles = 0;
             }

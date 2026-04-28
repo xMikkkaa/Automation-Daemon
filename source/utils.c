@@ -274,13 +274,11 @@ int get_battery_level(void) {
 }
 
 bool is_android_powersave(void) {
-    char* output = run_cmd_capture("cmd settings get global low_power", 1000);
-    bool active = false;
-    if (output) {
-        active = (output[0] == '1');
-        free(output);
+    char buffer[8];
+    if (read_file_content(AUTD_PS_STATE_PATH, buffer, sizeof(buffer))) {
+        return (buffer[0] == '1');
     }
-    return active;
+    return false;
 }
 
 bool get_system_property_boot_completed(void) {
@@ -312,5 +310,6 @@ void perform_cleanup(void) {
     remove(AUTD_STATUS_PATH); 
     remove(AUTD_AWAKE_DEBUG_LOG);
     remove(AUTD_BASE_MODE_PATH); 
+    remove(AUTD_PS_STATE_PATH);
     sync();
 }

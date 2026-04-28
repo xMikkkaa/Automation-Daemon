@@ -50,6 +50,7 @@ extern system_property_get_fn __system_property_get_ptr;
 #define FILELIST_PATH        APP_DIR "/applist"
 #define AUTD_STATUS_PATH     APP_DIR "/autd_status"
 #define AUTD_OPT_ALLOW_PATH  APP_DIR "/autd_opt_allow"
+#define AUTD_PS_STATE_PATH   APP_DIR "/autd_ps_state"
 
 // Logs
 #define AUTD_AWAKE_DEBUG_LOG APP_DIR "/autd_awake_method.info"

@@ -45,7 +45,7 @@ void ensure_app_dir(void) {
 void send_toast(const char *msg) {
     char command[512];
     int n = snprintf(command, sizeof(command),
-                     "am broadcast -a com.xaozora.manager.NOTIFY -n com.xaozora.manager/.ToastReceiver --user 0 --es message \"%s\" > /dev/null 2>&1",
+                     "am broadcast -a com.xaozora.manager.NOTIFY -n com.xaozora.manager/.services.ToastReceiver --user 0 --es message \"%s\" > /dev/null 2>&1",
                      msg ? msg : "");
     if (n < 0 || (size_t)n >= sizeof(command)) {
         command[sizeof(command) - 1] = '\0';

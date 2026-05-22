@@ -24,6 +24,8 @@ pub const FILELIST_PATH: &str = "/data/data/com.xaozora.manager/files/applist";
 pub const AUTD_STATUS_PATH: &str = "/data/data/com.xaozora.manager/files/autd_status";
 pub const AUTD_OPT_ALLOW_PATH: &str = "/data/data/com.xaozora.manager/files/autd_opt_allow";
 pub const AUTD_PS_STATE_PATH: &str = "/data/data/com.xaozora.manager/files/autd_ps_state";
+pub const AUTD_IDLE_CHARGING_PATH: &str = "/data/data/com.xaozora.manager/files/autd_idle_charging";
+pub const AUTD_SYSFS_BACKUP_PATH: &str = "/data/data/com.xaozora.manager/files/autd_sysfs_backup";
 
 pub const AUTD_AWAKE_DEBUG_LOG: &str = "/data/data/com.xaozora.manager/files/autd_awake_method.info";
 

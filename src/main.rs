@@ -44,6 +44,7 @@ fn perform_cleanup() {
     let _ = fs::remove_file(config::AUTD_AWAKE_DEBUG_LOG);
     let _ = fs::remove_file(config::AUTD_BASE_MODE_PATH);
     let _ = fs::remove_file(config::AUTD_PS_STATE_PATH);
+    monitor::battery::disable_idle_charging();
 }
 
 fn main() {
@@ -68,6 +69,10 @@ fn main() {
     }
 
     sleep(Duration::from_secs(5));
+    
+    monitor::battery::init_backup_once();
+    monitor::battery::reset_charging_states();
+
     utils::cmd::send_toast("Automation Daemon Started");
 
     while RUNNING.load(Ordering::SeqCst) {
@@ -106,13 +111,25 @@ fn main() {
             true
         };
 
+        let is_idle_charging_enabled = if let Ok(bytes) = fs::read(config::AUTD_IDLE_CHARGING_PATH) {
+            bytes.first() == Some(&b'1')
+        } else {
+            false
+        };
+
         let bat_level = monitor::battery::get_battery_level();
         let ps_active = monitor::battery::is_android_powersave();
 
         process::game_det::load_filelist_if_changed();
-        
+
         let game_check = process::game_det::find_game_process();
         let game_found = game_check.is_some();
+
+        if game_found && is_idle_charging_enabled {
+            monitor::battery::enable_idle_charging();
+        } else {
+            monitor::battery::disable_idle_charging();
+        }
 
         if let Some((current_game, chosen_mode, game_pid)) = game_check {
             if last_mode != chosen_mode {

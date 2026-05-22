@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export ANDROID_NDK_HOME="/home/mik/Android/Sdk/ndk/27.0.12077973"
+
 # Ensure ANDROID_NDK_HOME is set
 if [ -z "$ANDROID_NDK_HOME" ]; then
     echo -e "\e[1;31m[!] ERROR: ANDROID_NDK_HOME is not set.\e[0m"
@@ -9,7 +11,7 @@ if [ -z "$ANDROID_NDK_HOME" ]; then
 fi
 
 clear
-echo -e "\e[1;32m[*] Compiling Autd (Rust Edition) v2.1 for AArch64... \e[0m"
+echo -e "\e[1;32m[*] Compiling Autd  for AArch64... \e[0m"
 
 # Check and install required toolchains
 if ! command -v cargo-ndk &> /dev/null; then
